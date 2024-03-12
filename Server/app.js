@@ -9,7 +9,7 @@ if(process.env.NODE_ENV !== 'production'){
 
   const app = express();
   const PORT = process.env.PORT || 3000;
-  const router = require("./routes")
+  const router = require("./router")
   const cors = require("cors")
   
   app.use(express.urlencoded({ extended: true }));
