@@ -8,8 +8,11 @@ router.post("/login", UserController.loginUser)
 
 router.use("/public",require("./public"));
 
+router.use("/products",require("./products"));
 
-router.use("products",require("./products"));
+router.use("/cart",require("./cart"));
+
+router.use("/proof",require("./proof"));
 
 
 
