@@ -56,11 +56,12 @@ class ProductController{
                     id: id
                 }
             })
-            res.status(200).json({message: "Product has been deleted"})
+            res.status(200).json({message: `Product ${product.name} has been deleted`})
         }catch(error) {
             next(error)
         }
     }
+
 
 }
 
