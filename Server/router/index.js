@@ -9,7 +9,7 @@ router.post("/login", UserController.loginUser)
 router.use("/public",require("./public"));
 
 
-router.use("product",require("./product"));
+router.use("products",require("./products"));
 
 
 
