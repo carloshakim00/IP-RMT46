@@ -13,54 +13,17 @@ const router = createBrowserRouter([
         path: "/",
         element: <RootLayout />,
         errorElement: <ErrorPage />,
-        loader: () => {
-            if (localStorage.token) {
-                return redirect("/products")
-            } else {
-                return null
-            }
-        },
         children: [
             {
-                index:true,
-                loader: () => {
-                    return redirect("/public")
-                },
-            },
-            {
-                path: "/public",
+                path: "/",
                 element: <Public />
             },
             {
                 path: "/publicDetail/:id",
                 element: <PublicDetailPage />
             }
-        ],
-    },
-    {
-        path: "/products",
-        element: <AuthenticationPage />,
-        loader:() => {
-            if (localStorage.token) {
-                return null
-            } else {
-                return redirect("/")
-            }
-        },
-        children: [
-            {
-                index:true,
-                loader: () => {
-                    return redirect("/public/products")
-                }
-            },
-            {
-                path: "products",
-                element: <PublicDetailPage />
-            }
         ]
     }
-
 ]);
 
 export default router;

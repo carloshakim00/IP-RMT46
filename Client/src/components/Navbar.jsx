@@ -2,7 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Button from "./Button";
 import logo from "../assets/logo.jpg";
 import login from "../assets/login.png";
-import medical from "../assets/medical.png";
+
 
 export default function Navbar() {
     const navigate = useNavigate();

@@ -1,16 +1,20 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import serverRequest from "../utils/axios";
 
 export default function ProductDetail() {
     const [data, setData] = useState([]);
-    let { id } = useParams();
-
+    let {id} = useParams();
+    console.log(id);
     useEffect(() => {
         const fetchData = async () => {
             try {
-                let { data } = await axios.get(`https://medshop.carloshakim.online/public/products/${id}`);
-                setData(data);
+                let { pubData } = await serverRequest({
+                    url: `/public/products/${id}`,
+                    method: "GET",
+                })
+                console.log(pubData);
+                setData(pubData)
             } catch (error) {
                 console.log(error);
             }

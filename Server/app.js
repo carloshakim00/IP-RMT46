@@ -1,5 +1,4 @@
 if(process.env.NODE_ENV !== 'production'){
-
     require("dotenv").config();
   }
   
@@ -8,14 +7,13 @@ if(process.env.NODE_ENV !== 'production'){
   const errorHandler = require("./middlewares/errorHandler");
 
   const app = express();
-  const PORT = process.env.PORT || 3000;
   const router = require("./router")
   const cors = require("cors")
   
   app.use(express.urlencoded({ extended: true }));
   app.use(express.json());
-  app.use(router)
   app.use(cors())
+  app.use(router)
   //errorHandler
   app.use(errorHandler)
   

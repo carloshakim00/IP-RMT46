@@ -2,9 +2,9 @@ import { Link } from "react-router-dom";
 import Button from "./Button";
 
 const ProductCard = ({ id, name, price, imageUrl, description, usage, updatedAt, handleOnDetail }) => {
-  const handleClick = () => {
-    handleOnDetail(id);
-  };
+//   const handleClick = () => {
+//     handleOnDetail(id);
+//   };
 
   return (
     <div className="w-full md:w-1/2 lg:w-1/3 p-2">
@@ -14,7 +14,7 @@ const ProductCard = ({ id, name, price, imageUrl, description, usage, updatedAt,
             src={imageUrl}
             className="w-full h-48 object-cover cursor-pointer"
             alt="Product"
-            onClick={handleClick}
+            // onClick={handleClick}
           />
         </Link>
         <div className="p-4">
