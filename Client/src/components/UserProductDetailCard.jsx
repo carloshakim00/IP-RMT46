@@ -10,7 +10,7 @@ export default function UserProductDetail() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                let pubData = await axios.get(`https://medshop.carloshakim.online/public/products/${id}`,{headers: {
+                let pubData = await axios.get(`https://medshop.carloshakim.online/products/${id}`,{headers: {
                     Authorization: `Bearer ${localStorage.getItem("token")}`,
                 }})
                 console.log(pubData);

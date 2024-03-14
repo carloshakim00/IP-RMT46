@@ -53,6 +53,12 @@ export default function NavbarProduct() {
                     </div>
                 </div>
             </div>
+            <div className="container mx-auto">
+            <Button
+            name="My Cart"
+            buttonClass="bg-red-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded mb-5"
+            onClick={() => navigate('/products/myCart')} />
+            </div>
         </div>
     );
 }

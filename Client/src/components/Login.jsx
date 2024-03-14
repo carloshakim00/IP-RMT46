@@ -30,6 +30,7 @@ const handleSubmit = async (event) => {
        data: userData, 
     });
     localStorage.setItem("token", data.access_token);
+    localStorage.setItem("userId", data.userId);
     navigate("/products");
    } catch (error) {
     console.log(error)
