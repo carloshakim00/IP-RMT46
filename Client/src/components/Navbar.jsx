@@ -1,31 +1,50 @@
-import { Link, useNavigate } from "react-router-dom"
-import Button from "./Button"
-import home from "../assets/home.png"
-import login from "../assets/login.png"
+import { Link, useNavigate } from "react-router-dom";
+import Button from "./Button";
+import logo from "../assets/logo.jpg";
+import login from "../assets/login.png";
+import medical from "../assets/medical.png";
+
 export default function Navbar() {
     const navigate = useNavigate();
     return (
-        <>
-            <div className="tw-navbar tw-bg-base-100">
-                <div className="tw-navbar-start tw-ml-5">
-                    <Button
-                        container={<img className="tw-size-full" src={home} alt={"home"} />}
-                        buttonClass={"tw-flex tw-flex-col tw-btn tw-btn-square tw-btn-ghost"}
-                        onClick={() => navigate('/')} />
-                    <div className="tw-flex-1 tw-ml-5">
-                        <Link className="tw-font-bold tw-text-xl" to="/">MedShop</Link>
-                    </div>
+        <div className="bg-white text-red-600">
+            <div className="container mx-auto flex justify-between items-center py-4">
+                <div className="flex items-center">
+                    <Link to="/">
+                        <img className="w-10 h-10 mr-2" src={logo} alt="home" />
+                    </Link>
+                    <Link className="font-bold text-xl" to="/">MedShop</Link>
                 </div>
-                <div className="tw-flex-none tw-navbar-end">
-                    <div className="tw-ml-5">
+                <div>
+                <Link to="/login" className="ml-5">
+                        <img className="w-30 h-10" src={login} alt="login" />
+                </Link>
+                </div>
+            </div>
+            <div className="bg-white py-2">
+                <div className="container mx-auto flex justify-between items-center mb-5">
+                    <div>
                         <Button
-                            name={"Login"}
-                            container={<img className="tw-size-full" src={login} alt={"login"} />}
-                            buttonClass={"tw-flex tw-flex-col tw-mr-20 tw-btn tw-btn-square tw-btn-ghost"}
-                            onClick={() => navigate('/login')} />
+                            name="About Us"
+                            buttonClass="mr-4 bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded"
+                            onClick={() => navigate('/about')} />
+                        <Button
+                            name="Contact Us"
+                            buttonClass="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded"
+                            onClick={() => navigate('/contact')} />
+                    </div>
+                    <div>
+                        <input
+                            type="text"
+                            placeholder="Search..."
+                            className="border-2 border-gray-300 bg-white h-10 px-5 pr-16 rounded-lg text-sm focus:outline-none"
+                        />
+                        <button className="bg-red-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-4">
+                            Search
+                        </button>
                     </div>
                 </div>
             </div>
-        </>
-    )
+        </div>
+    );
 }
