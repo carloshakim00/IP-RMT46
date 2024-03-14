@@ -1,6 +1,7 @@
 const { User } = require("../models");
 const { hashPassword, comparePassword } = require("../helpers/bcrypt");
 const { signToken } = require("../helpers/jwt");
+const client = new OAuth2Client();
 
 class UserController{
     static async addUser(req, res, next) {
@@ -44,7 +45,7 @@ class UserController{
             throw {
               name: "CustomError",
               status: 400,
-              message: "Invalid Email/Password",
+              message: "Invalid email/password",
             };
           }
     
@@ -52,6 +53,37 @@ class UserController{
           res.status(200).json({ access_token: token });
         } catch (error) {
             next(error)
+        }
+      }
+
+      static async googleLogin(req, res, next) {
+        const { googleToken } = req.body;
+        console.log(req.body, "<<< req.body googleLogin");
+        try {
+          const ticket = await client.verifyIdToken({
+            idToken: googleToken,
+            audience:
+              "865229472588-jh2fdnjo4rrr79po2q9ng93k628h4gbi.apps.googleusercontent.com",
+          });
+          const { email, name } = ticket.getPayload();
+          const password = Math.random().toString();
+          const [user, created] = await User.findOrCreate({
+            where: { email },
+            defaults: {
+              name,
+              email,
+              password,
+            },
+            
+          });
+          console.log({ user, created }, "<<< user created googleLogin");
+    
+          const access_token = signToken({ id: user.id });
+          res
+            .status(200)
+            .json({ message: "Logged in as " + user.email, access_token });
+        } catch (err) {
+          next(err);
         }
       }
 }

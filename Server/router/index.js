@@ -5,6 +5,7 @@ const router = express.Router();
 
 router.post("/register", UserController.addUser)
 router.post("/login", UserController.loginUser)
+router.post("/google-login", UserController.googleLogin)
 
 router.use("/public",require("./public"));
 
