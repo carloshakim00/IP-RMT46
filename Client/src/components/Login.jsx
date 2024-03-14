@@ -30,7 +30,7 @@ const handleSubmit = async (event) => {
        data: userData, 
     });
     localStorage.setItem("token", data.access_token);
-    navigate("/public");
+    navigate("/products");
    } catch (error) {
     console.log(error)
     toast(error.response?.data?.message || error.message, "error")
@@ -48,6 +48,13 @@ const handleSubmit = async (event) => {
             </span>
           </div>
           <div className="col-12 col-lg-8 offset-lg-2 my-5">
+            <Button
+            name={"Back"}
+            buttonType={"submit"}
+            buttonClass={"bg-red-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded text-sm"}
+            onClick={() => navigate("/")}>
+
+            </Button>
             <div className="row">
               <div className="col-12 col-md-6 border-end p-5 text-left">
                 <img
@@ -114,13 +121,13 @@ const handleSubmit = async (event) => {
                     name={"Login"}
                     buttonClass={"bg-blue-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded text-sm"}
                     buttonType={"submit"}
-                    onClick={() => navigate("/public")}
+                    onClick={() => navigate("/products")}
                     >
 
                     </Button>
                         </div>
                         <p className="mt-3 text-center text-red-500">
-                            Don't Have an Account? <Link to={"/register"}>Register</Link>
+                            Dont Have an Account? <Link to={"/register"}>Register</Link>
                         </p>
                   </form>
                 </div>

@@ -42,6 +42,13 @@ export default function Register() {
     return (
         <section className="flex flex-col items-center mt-10">
             <h1 className="text-3xl font-bold mb-8">Register User</h1>
+            <Button
+            name={"Back"}
+            buttonType={"submit"}
+            buttonClass={"bg-red-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded text-sm"}
+            onClick={() => navigate("/login")}>
+
+            </Button>
             <form
                 id="register-form"
                 className="w-full max-w-lg px-8 py-6 bg-white shadow-md rounded-lg"
