@@ -51,7 +51,7 @@ class UserController{
           }
     
           let token = signToken({ id: user.id });
-          res.status(200).json({ access_token: token });
+          res.status(200).json({ access_token: token , userId: user.id});
         } catch (error) {
             next(error)
         }
