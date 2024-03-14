@@ -1,6 +1,7 @@
 const { User } = require("../models");
 const { hashPassword, comparePassword } = require("../helpers/bcrypt");
 const { signToken } = require("../helpers/jwt");
+const {OAuth2Client} = require("google-auth-library")
 const client = new OAuth2Client();
 
 class UserController{
@@ -63,7 +64,7 @@ class UserController{
           const ticket = await client.verifyIdToken({
             idToken: googleToken,
             audience:
-              "865229472588-jh2fdnjo4rrr79po2q9ng93k628h4gbi.apps.googleusercontent.com",
+              "888996035254-qqqrffv50i0tk2i45ja7j75g1ii9nlkg.apps.googleusercontent.com",
           });
           const { email, name } = ticket.getPayload();
           const password = Math.random().toString();
