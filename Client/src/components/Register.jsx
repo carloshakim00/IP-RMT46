@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import serverRequest from "../utils/axios";
 import Toastify from "../utils/toast";
+
 export default function Register(){
     const navigate = useNavigate()
     const [userData,setUserData] = useState({
