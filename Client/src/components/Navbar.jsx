@@ -25,6 +25,10 @@ export default function Navbar() {
                 <div className="container mx-auto flex justify-between items-center mb-5">
                     <div>
                         <Button
+                            name="Home"
+                            buttonClass="mr-4 bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded"
+                            onClick={() => navigate('/')} />
+                        <Button
                             name="About Us"
                             buttonClass="mr-4 bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded"
                             onClick={() => navigate('/about')} />

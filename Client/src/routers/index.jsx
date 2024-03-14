@@ -6,6 +6,9 @@ import Public from "../views/PublicPage";
 import Authentication from "../views/AuthenticationPage";
 import PublicDetailPage from "../views/PublicDetailPage";
 import AuthenticationPage from "../views/AuthenticationPage";
+import AboutUs from "../views/AboutUs";
+import ContactUs from "../views/ContactUs";
+import LoginPage from "../views/LoginPage";
 
 
 const router = createBrowserRouter([
@@ -21,8 +24,29 @@ const router = createBrowserRouter([
             {
                 path: "/publicDetail/:id",
                 element: <PublicDetailPage />
-            }
+            },
+            {
+                path: "/about",
+                element: <AboutUs />
+            },
+            {
+                path: "/contact",
+                element: <ContactUs />
+            },
+            {
+                path: "/products",
+                element:
+            },
+
         ]
+    },
+    {
+        path: "/login",
+        element: <LoginPage />
+    },
+    {
+        path: "/register",
+        element: <RegisterPage />
     }
 ]);
 

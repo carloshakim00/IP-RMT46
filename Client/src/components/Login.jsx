@@ -2,7 +2,8 @@ import { useState } from "react";
 import  serverRequest from "../utils/axios";
 import toast from "../utils/toast"
 import { useNavigate } from "react-router-dom";
-
+import Button from "./Button";
+import { Link } from "react-router-dom";
 export default function Login() {
   const navigate = useNavigate();
   const [ userData, setUserData ] = useState({
@@ -29,7 +30,7 @@ const handleSubmit = async (event) => {
        data: userData, 
     });
     localStorage.setItem("token", data.access_token);
-    navigate("/owner");
+    navigate("/public");
    } catch (error) {
     console.log(error)
     toast(error.response?.data?.message || error.message, "error")
@@ -50,15 +51,15 @@ const handleSubmit = async (event) => {
             <div className="row">
               <div className="col-12 col-md-6 border-end p-5 text-left">
                 <img
-                  src="https://w7.pngwing.com/pngs/702/382/png-transparent-jobs-text-overlay-jobs-miscellaneous-gold-employment-thumbnail.png"
-                  width="350px"
-                  alt="career_portal"
+                  src="https://cdn2.f-cdn.com/contestentries/1472666/30841991/5c644ce550841_thumb900.jpg"
+                  width="500px"
+                  alt="medshop"
                 />
               </div>
               <div className="col-12 col-md-6 p-5 text-left">
                 <div className="form-signin m-auto">
                   <form id="login-form">
-                    <h1 className="h3 mb-3 display-1">Log in to your account</h1>
+                    <h3 className="h3 mb-3 display-4">Log in to your account</h3>
                     <span>Log in on your profile</span>
                     <div className="mb-3 mt-3">
                       <div className="d-flex justify-content-between">
@@ -108,12 +109,19 @@ const handleSubmit = async (event) => {
                         </label>
                       </div>
                     </div>
-                    <button
-                      className="btn btn-lg btn-primary rounded-pill w-100 p-2"
-                      type="submit"
+                    <div className="d-grid">
+                    <Button
+                    name={"Login"}
+                    buttonClass={"bg-blue-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded text-sm"}
+                    buttonType={"submit"}
+                    onClick={() => navigate("/public")}
                     >
-                      Log In
-                    </button>
+
+                    </Button>
+                        </div>
+                        <p className="mt-3 text-center text-red-500">
+                            Don't Have an Account? <Link to={"/register"}>Register</Link>
+                        </p>
                   </form>
                 </div>
               </div>

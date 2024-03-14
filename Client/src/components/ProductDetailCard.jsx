@@ -1,44 +1,55 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import serverRequest from "../utils/axios";
-
+import axios from "axios";
+import Button from "./Button";
+import { useNavigate } from "react-router-dom";
 export default function ProductDetail() {
-    const [data, setData] = useState([]);
+    const [dataProduct, setDataProduct] = useState([]);
     let {id} = useParams();
-    console.log(id);
+    const navigate = useNavigate();
     useEffect(() => {
         const fetchData = async () => {
             try {
-                let { pubData } = await serverRequest({
-                    url: `/public/products/${id}`,
-                    method: "GET",
-                })
+                let pubData = await axios.get(`https://medshop.carloshakim.online/public/products/${id}`)
                 console.log(pubData);
-                setData(pubData)
+                setDataProduct(pubData.data)
             } catch (error) {
                 console.log(error);
             }
         };
         fetchData();
     }, []);
+    console.log(id);
 
     return (
-        <div className="w-full md:w-1/2 lg:w-1/3 p-2">
-            <div className="bg-white rounded-lg overflow-hidden shadow-md">
-                <img src={data.imageUrl} className="w-full h-48 object-cover" alt="Product" />
-                <div className="p-4">
-                    <h5 className="text-lg font-semibold mb-2">{data.name}</h5>
-                    <p className="text-gray-900 font-bold mb-2">{data.price}</p>
-                    <p className="text-gray-800 mb-2">{data.usage}</p>
-                    <p className="text-gray-800 mb-2">{data.description}</p>
-                    <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                        Add to Cart
-                    </button>
-                </div>
-                <div className="bg-gray-100 p-4">
-                    <small className="text-gray-500">Last updated {data.updatedAt}</small>
+        <div className="container">
+            <Button
+            name={"Back"}
+            buttonClass={"bg-red-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded text-sm"}
+            buttonType={"submit"}
+            onClick={() => navigate("/")}>
+                Back
+            </Button>
+
+        <div className="container d-flex justify-content-center">
+        <div className="w-full md:w-1/2">
+            <div className="bg-white rounded-lg overflow-hidden shadow-md flex items-center justify-center">
+                <img src={dataProduct.imageUrl} className="w-2/3 h-auto" alt="Product" />
+                <div className="p-1">
+                    <h1 className="text-lg font-semibold mb-5 text-center">{dataProduct.name}</h1>
+                    <p className="text-gray-900 font-bold mb-4 text-center">Price: {dataProduct.price}</p>
+                    <p className="text-gray-800 mb-4 text-center">Description: {dataProduct.description}</p>
+                    <p className="text-gray-800 mb-2 text-center">Usage: {dataProduct.usage}</p>
                 </div>
             </div>
+            <div className="bg-gray-100 p-4">
+                <small className="text-gray-500">Last updated {dataProduct.updatedAt}</small>
+            </div>
+        </div>
+        </div>
         </div>
     );
+    
+    
+    
 }
