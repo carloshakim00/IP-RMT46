@@ -9,6 +9,7 @@ const Main = () => {
     const dispatch = useDispatch();
     const pubData = useSelector((state) => state.products.list)
 
+
     const handleOnDetail = (id) => {
         navigate(`/publicDetail/${id}`)
     }
