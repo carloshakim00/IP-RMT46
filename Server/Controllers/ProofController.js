@@ -1,4 +1,4 @@
-c:onst { Proof } = require("../models");
+const { Proof } = require("../models");
 
 const cloud_name = process.env.cloud_name;
 const api_key = process.env.api_key;
@@ -13,26 +13,25 @@ cloudinary.config({
 
 class ProofController {
 
-  static async createProof(req, res, next) {
-    
-    try {
-      console.log(req.file);
-      console.log(req.body);
-      const mimetype = req.file.mimetype;
-      const data = Buffe      const dataURL = `data:${mimetype};base64,${data}`;
-      const timestamp = new Date().getTime();
-      const publicId = `image_${timestamp}`;
-      const file = await cloudinary.uploader.upload(dataURL, {
-        public_id: publicId,
-      });
-      await Proof.create({
-          imageUrl: file.secure_url,
-          userId: req.body.userId
-      })
-      res.status(201).json({message: "Proof has been created"});
+  static async createProof(req, res,next){
+	  try {
+	  if (!req.file) throw { name: "CustomError", status: 400, message: "Image is required" };
+	      
+	        const mimetype = req.file.mimetype;
+	        const data = Buffer.from(req.file.buffer).toString('base64');
+	        const dataURI = `data:${mimetype};base64,${data}`;
+	        
+	        const result = await cloudinary.uploader.upload(dataURI, {
+			          public_id: "poke",
+			      });
+
+	        const proof = await Proof.findByPk(req.params.id);
+	        if (!proof) throw { name: "NotFound" };
+
+	        await proof.create({ imgUrl: result.secure_url });
+	        res.status(201).json({ message: `Image successfully created` });
     } catch (error) {
       next(error);
  }
   }}
-odule.exports = ProofCon:q
-troller;
+module.exports = ProofController;
