@@ -4,6 +4,10 @@ class CartController{
     static async getAllItems(req, res, next) {
         try {
           const items = await Cart.findAll({
+            where: {
+              userId: req.user.id
+            },
+            
             include: {
               model: Product,
             }
