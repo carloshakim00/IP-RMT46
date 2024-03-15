@@ -12,7 +12,6 @@ cloudinary.config({
 });
 
 class ProofController {
-
   static async createProof(req, res,next){
 	  try {
 	  if (!req.file) throw { name: "CustomError", status: 400, message: "Image is required" };

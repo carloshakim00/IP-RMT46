@@ -32,7 +32,7 @@ const UserMain = () => {
     },[])
 
     const products = pubData.map((product,index) => {
-        return <UserProductCard key={index} name={product.name} price={product.price}
+        return <UserProductCard key={index} id={product.id} name={product.name} price={product.price}
         imageUrl={product.imageUrl} description={product.description} usage={product.usage}
         updatedAt={product.updatedAt} handleOnDetail={() => handleOnDetail(product.id)}/>
     })
