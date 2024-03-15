@@ -15,11 +15,12 @@ export default function UserCart() {
     useEffect(() => {
         const fetchUserCart = async () => {
             try {
-                let userData = await axios.get(`https://medshop.carloshakim.online/cart?userId=${id}`,{
+                let userData = await axios.get(`https://medshop.carloshakim.online/cart?userId=${localStorage.getItem("userId")}`,{
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem("token")}`,
                     },
                 });
+                console.log(`https://medshop.carloshakim.online/cart?userId=${localStorage.getItem("userId")}`);
                 console.log(userData);
                 setCartItems(userData.data);
                 setQuantities(
