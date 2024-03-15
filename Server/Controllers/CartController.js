@@ -50,6 +50,19 @@ class CartController{
           next(error);
         }
       }
+
+      static async updateItemById(req, res, next) {
+        const { id } = req.params;
+        try {
+          const items = await Cart.findByPk(id);
+          await items.update(req.body);
+          res
+            .status(200)
+            .json({ message: `Item has been updated` });
+        } catch (error) {
+          next(error);
+        }
+      }
 }
 
 module.exports = CartController
