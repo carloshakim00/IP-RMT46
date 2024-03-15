@@ -1,4 +1,4 @@
-const { Proof } = require("../models");
+c:onst { Proof } = require("../models");
 
 const cloud_name = process.env.cloud_name;
 const api_key = process.env.api_key;
@@ -19,8 +19,7 @@ class ProofController {
       console.log(req.file);
       console.log(req.body);
       const mimetype = req.file.mimetype;
-      const data = Buffer.from(req.file.buffer).toString("base64");
-      const dataURL = `data:${mimetype};base64,${data}`;
+      const data = Buffe      const dataURL = `data:${mimetype};base64,${data}`;
       const timestamp = new Date().getTime();
       const publicId = `image_${timestamp}`;
       const file = await cloudinary.uploader.upload(dataURL, {
@@ -33,7 +32,7 @@ class ProofController {
       res.status(201).json({message: "Proof has been created"});
     } catch (error) {
       next(error);
-    }
-  }
-}
-module.exports = ProofController;
+ }
+  }}
+odule.exports = ProofCon:q
+troller;
