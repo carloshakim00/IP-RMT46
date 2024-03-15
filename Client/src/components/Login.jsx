@@ -153,12 +153,12 @@ useEffect(() => {
                     >
                     </Button>
                         </div>
-                        <p className="mt-3 text-center text-red-500">
+                        <p className="mt-3 text-center text-red-500 mb-4">
                             Dont Have an Account? <Link to={"/register"}>Register</Link>
                         </p>
                   </form>
                 </div>
-                <div className="d-flex justify-content-center mb-5">- or -</div>
+                <div className="d-flex justify-content-center mb-4">- or -</div>
         <div className="d-flex justify-content-center">
           <div id="buttonDiv"></div>
         </div>

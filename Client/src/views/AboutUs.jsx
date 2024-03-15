@@ -1,3 +1,4 @@
+import Map from "../components/Leaflet";
 
 
 export default function AboutUs() {
@@ -15,6 +16,7 @@ export default function AboutUs() {
         Temukan solusi kesehatan terbaik untuk Anda dan keluarga di Apotik
         Online kami.
       </p>
+      <Map />
     </div>
   );
 }
