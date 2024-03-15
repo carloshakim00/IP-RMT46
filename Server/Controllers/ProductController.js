@@ -1,15 +1,10 @@
 const { Product} = require("../models");
-const {toRupiah, formatDate} = require("../helpers/format");
+
 class ProductController {
   static async getAllProduct(req, res, next) {
     try {
       const products = await Product.findAll();
-      const productsWithFormat = products.map(product => ({
-        ...product.dataValues,
-        price: toRupiah(product.price),
-        updatedAt: formatDate(product.updatedAt),
-      }));
-      res.json(productsWithFormat);
+      res.json(products);
     } catch (error) {
       next(error);
     }
@@ -24,12 +19,7 @@ class ProductController {
           name: "NotFound",
         };
       }
-      const productsWithFormat = product.map(product => ({
-        ...product.dataValues,
-        price: toRupiah(product.price),
-        updatedAt: formatDate(product.updatedAt),
-      }));
-      res.json(productsWithFormat);
+      res.json(product);
     } catch (error) {
       next(error);
     }

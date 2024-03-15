@@ -12,12 +12,7 @@ class CartController{
               model: Product,
             }
           });
-          const productsWithFormat = items.map(product => ({
-            ...product.dataValues,
-            price: toRupiah(product.price),
-            updatedAt: formatDate(product.updatedAt),
-          }));
-          res.json(productsWithFormat);
+          res.json(items);
         } catch (error) {
           next(error);
         }
