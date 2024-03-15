@@ -15,7 +15,7 @@ export default function Register() {
     const onHandleRegister = async (e) => {
         e.preventDefault();
         try {
-            let { data } = await serverRequest({
+            await serverRequest({
                 method: "POST",
                 url: "/register",
                 headers: {
@@ -24,7 +24,7 @@ export default function Register() {
                 data: userData,
             });
             navigate("/login");
-            successToast(`Successfully register ${data.username}`, "success");
+            successToast(`Successfully register ${userData.username}`, "success");
         } catch (error) {
             errorAlert(error.response?.data?.message || error.message);
         }
