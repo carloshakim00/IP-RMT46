@@ -10,6 +10,6 @@ const ProofController = require("../Controllers/ProofController");
 
 router.use(authentication)
 
-router.post("/", upload.single("image"), ProofController.createProof);
+router.post("/:userId", upload.single("image"), ProofController.createProof);
 
 module.exports = router

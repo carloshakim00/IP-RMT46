@@ -13,7 +13,7 @@ export default function CheckOut() {
                 formData.append("image", file);
                 formData.append("name", "pokee");
                 
-                await axios.post(`https://medshop.carloshakim.online/proof`, formData, {
+                await axios.post(`localhost:3000/proof`, formData, {
                     headers: {
                         "Content-Type": "multipart/form-data",
                         Authorization: `Bearer ${localStorage.getItem("token")}`,

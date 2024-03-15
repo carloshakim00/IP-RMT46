@@ -14,6 +14,7 @@ cloudinary.config({
 class ProofController {
   static async createProof(req, res,next){
 	  try {
+		const {userId} = req.params
 	  if (!req.file) throw { name: "CustomError", status: 400, message: "Image is required" };
 	      
 	        const mimetype = req.file.mimetype;
@@ -24,8 +25,8 @@ class ProofController {
 			          public_id: public_id,
 			      });
 
-	        await proof.create({ imgUrl: result.secure_url });
-	        res.status(201).json({ message: `Image successfully created` });
+	       const proof = await Proof.create({ imageUrl: result.secure_url , userId});
+	        res.status(201).json({proof, message: `Image successfully created` });
     } catch (error) {
       next(error);
  }
