@@ -3,6 +3,7 @@ import Button from "./Button";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
+// eslint-disable-next-line react/prop-types
 const UserProductCard = ({ id, name, price, imageUrl, updatedAt, handleOnDetail }) => {
     const navigate = useNavigate();
     const handleClick = () => {
