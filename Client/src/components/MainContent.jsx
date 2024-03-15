@@ -2,19 +2,22 @@ import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom";
 import serverRequest from "../utils/axios";
 import ProductCard from "./ProductCard";
-
+import { useSelector , useDispatch} from "react-redux";
+import { setProducts } from "../features/product/productSlice";
 
 
 const Main = () => {
     const navigate = useNavigate();
-    const [pubData, setPubData] = useState([])
+    const dispatch = useDispatch();
+    const pubData = useSelector((state) => state.products.list)
+
     const fetchPubData = async () => {
         try {
             let {data} = await serverRequest({
                 url: `/public/products`,
                 method: "GET"
             })
-            setPubData(data)
+            dispatch(setProducts(data));
         } catch (error) {
             console.log(error);
         }
