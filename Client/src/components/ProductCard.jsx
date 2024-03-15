@@ -34,8 +34,8 @@ const ProductCard = ({ id, name, price, imageUrl, usage, updatedAt, handleOnDeta
           onClick={handleClick}
         />
         <div className="p-4">
-          <h5 className="text-lg font-semibold mb-2">{name}</h5>
-          <p className="text-gray-900 font-bold mb-4">{formattedPrice}</p>
+          <h5 className="text-lg font-semibold mb-2 text-center">{name}</h5>
+          <p className="text-gray-900 font-bold mb-4 text-center">{formattedPrice}</p>
           <div className="flex justify-center">
             <Button
               name={"Add to Cart"}

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { errorAlert } from "../utils/sweetAlert";
-
+import {toRupiah} from "../helpers/format"
 export default function UserCart() {
     const [cartItems, setCartItems] = useState([]);
     const [isDeleted, setIsDeleted] = useState(false);
@@ -106,8 +106,8 @@ export default function UserCart() {
                     <div className="bg-white rounded-lg shadow-lg" key={cart.Product.id}>
                         <img src={cart.Product.imageUrl} className="w-full h-48 object-cover rounded-t-lg" alt={cart.Product.name} />
                         <div className="p-4">
-                            <h5 className="text-lg font-semibold mb-3">{cart.Product.name}</h5>
-                            <p className="text-gray-600 mb-3">{cart.Product.price}</p>
+                            <h5 className="text-lg font-semibold mb-3 text-center">{cart.Product.name}</h5>
+                            <p className="text-gray-600 mb-5 text-center">{toRupiah(cart.Product.price)}</p>
                             <div className="flex justify-between items-center">
                                 <input
                                     type="number"
