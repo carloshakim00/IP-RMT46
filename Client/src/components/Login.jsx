@@ -4,6 +4,8 @@ import toast from "../utils/toast"
 import { useNavigate } from "react-router-dom";
 import Button from "./Button";
 import { Link } from "react-router-dom";
+import showToast from "../utils/toast";
+import { useEffect } from "react";
 export default function Login() {
   const navigate = useNavigate();
   const [ userData, setUserData ] = useState({
@@ -37,6 +39,31 @@ const handleSubmit = async (event) => {
     toast(error.response?.data?.message || error.message, "error")
    }
 }
+
+const handleCredentialResponse = async ({ credential }) => {
+  const { data } = await serverRequest.post("/google-login", {
+    googleToken: credential,
+  });
+  localStorage.setItem("token", data.access_token);
+  showToast(data.message);
+  navigate("/products/product");
+};
+
+useEffect(() => {
+  
+  // eslint-disable-next-line no-undef
+  google.accounts.id.initialize({
+    client_id: "888996035254-qqqrffv50i0tk2i45ja7j75g1ii9nlkg.apps.googleusercontent.com",
+    callback: handleCredentialResponse,
+  });
+  // eslint-disable-next-line no-undef
+  google.accounts.id.renderButton(document.getElementById("buttonDiv"), {
+    theme: "outline",
+    size: "large",
+  });
+  
+}, []);
+
     return (
       <section
         onSubmit={handleSubmit}
@@ -124,7 +151,6 @@ const handleSubmit = async (event) => {
                     buttonType={"submit"}
                     onClick={() => navigate("/products")}
                     >
-
                     </Button>
                         </div>
                         <p className="mt-3 text-center text-red-500">
@@ -132,6 +158,10 @@ const handleSubmit = async (event) => {
                         </p>
                   </form>
                 </div>
+                <div className="d-flex justify-content-center mb-5">- or -</div>
+        <div className="d-flex justify-content-center">
+          <div id="buttonDiv"></div>
+        </div>
               </div>
             </div>
           </div>

@@ -12,7 +12,9 @@ import User from "../views/UserProductPage";
 import UserDetailPage from "../views/UserProductDetailPage";
 import UserAboutUs from "../views/UserAboutUs";
 import UserContactUs from "../views/UserContactUs";
-import UserCartPage from "../views/UserCartPage";
+import UserCart from "../components/UserCart";
+import CheckOut from "../components/CheckOut";
+import Done from "../components/Done";
 
 
 const router = createBrowserRouter([
@@ -82,7 +84,15 @@ const router = createBrowserRouter([
             },
             {
                 path: "myCart",
-                element: <UserCartPage />
+                element: <UserCart />
+            },
+            {
+                path: "checkout",
+                element: <CheckOut />
+            },
+            {
+                path: "done",
+                element: <Done />
             }
         ]
     },
