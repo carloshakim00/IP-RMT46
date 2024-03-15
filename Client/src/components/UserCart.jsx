@@ -9,19 +9,19 @@ export default function UserCart() {
     const [quantities, setQuantities] = useState({});
     const [showDeleteNotification, setShowDeleteNotification] = useState(false);
     const [showUpdateNotification, setShowUpdateNotification] = useState(false);
-    const { id } = localStorage.getItem("userId");
     const navigate = useNavigate();
 
     useEffect(() => {
         const fetchUserCart = async () => {
             try {
-                let userData = await axios.get(`https://medshop.carloshakim.online/cart?userId=${localStorage.getItem("userId")}`,{
+                let userData = await axios.get(`https://medshop.carloshakim.online/cart?userId=${localStorage.getItem("userId")}`,
+                {
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem("token")}`,
                     },
                 });
                 console.log(`https://medshop.carloshakim.online/cart?userId=${localStorage.getItem("userId")}`);
-                console.log(userData);
+                console.log(userData.data);
                 setCartItems(userData.data);
                 setQuantities(
                     userData.data.reduce((acc, cart) => {

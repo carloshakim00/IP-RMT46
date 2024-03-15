@@ -24,9 +24,6 @@ class ProofController {
 			          public_id: public_id,
 			      });
 
-	        const proof = await Proof.findByPk(req.params.id);
-	        if (!proof) throw { name: "NotFound" };
-
 	        await proof.create({ imgUrl: result.secure_url });
 	        res.status(201).json({ message: `Image successfully created` });
     } catch (error) {
