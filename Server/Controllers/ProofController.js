@@ -19,9 +19,9 @@ class ProofController {
 	        const mimetype = req.file.mimetype;
 	        const data = Buffer.from(req.file.buffer).toString('base64');
 	        const dataURI = `data:${mimetype};base64,${data}`;
-	        const public = new Date().getTime();
+	        const public_id = new Date().getTime().toString();
 	        const result = await cloudinary.uploader.upload(dataURI, {
-			          public_id: public,
+			          public_id: public_id,
 			      });
 
 	        const proof = await Proof.findByPk(req.params.id);
