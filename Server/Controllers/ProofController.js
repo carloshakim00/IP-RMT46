@@ -12,25 +12,23 @@ cloudinary.config({
 });
 
 class ProofController {
-
   static async createProof(req, res, next) {
-    
     try {
-      console.log(req.file);
-      console.log(req.body);
-      const mimetype = req.file.mimetype;
-      const data = Buffer.from(req.file.buffer).toString("base64");
-      const dataURL = `data:${mimetype};base64,${data}`;
+      const file = req.body.image; 
       const timestamp = new Date().getTime();
       const publicId = `image_${timestamp}`;
-      const file = await cloudinary.uploader.upload(dataURL, {
+      
+      const result = await cloudinary.uploader.upload(file, {
         public_id: publicId,
       });
+
+
       await Proof.create({
-          imageUrl: file.secure_url,
-          userId: req.body.userId
-      })
-      res.status(201).json({message: "Proof has been created"});
+        imageUrl: result.secure_url,
+        userId: req.body.userId
+      });
+
+      res.status(201).json({ message: "Proof has been created" });
     } catch (error) {
       next(error);
     }
