@@ -12,7 +12,7 @@ const UserProductCard = ({ id, name, price, imageUrl, updatedAt, handleOnDetail 
 
     const [data, setData] = useState([]);
     useEffect(() => {
-        const fetchData = async () => {
+        const fetchUserProductCard = async () => {
             try {
                 let response = await axios.get(`https://medshop.carloshakim.online/cart`, {
                     headers: {
@@ -24,7 +24,7 @@ const UserProductCard = ({ id, name, price, imageUrl, updatedAt, handleOnDetail 
                 console.log(error);
             }
         };
-        fetchData();
+        fetchUserProductCard();
     }, []);
 
     const isProductInCart = data.some((item) => item.Product.id === id);

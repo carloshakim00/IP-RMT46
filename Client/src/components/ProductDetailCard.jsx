@@ -8,7 +8,7 @@ export default function ProductDetail() {
     let {id} = useParams();
     const navigate = useNavigate();
     useEffect(() => {
-        const fetchData = async () => {
+        const fetchProductDetailData = async () => {
             try {
                 let pubData = await axios.get(`https://medshop.carloshakim.online/public/products/${id}`)
                 console.log(pubData);
@@ -17,7 +17,7 @@ export default function ProductDetail() {
                 console.log(error);
             }
         };
-        fetchData();
+        fetchProductDetailData();
     }, []);
     console.log(id);
 

@@ -12,7 +12,7 @@ export default function UserCart() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        const fetchData = async () => {
+        const fetchUserCart = async () => {
             try {
                 let userData = await axios.get(`https://medshop.carloshakim.online/cart`, {
                     headers: {
@@ -31,7 +31,7 @@ export default function UserCart() {
                 console.log(error);
             }
         };
-        fetchData();
+        fetchUserCart();
     }, [isDeleted, showDeleteNotification, showUpdateNotification]);
 
     const handleDelete = async (id) => {

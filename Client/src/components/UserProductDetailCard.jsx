@@ -8,7 +8,7 @@ export default function UserProductDetail() {
     let {id} = useParams();
     const navigate = useNavigate();
     useEffect(() => {
-        const fetchData = async () => {
+        const fetchUserProductDetail = async () => {
             try {
                 let pubData = await axios.get(`https://medshop.carloshakim.online/products/${id}`,{headers: {
                     Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -19,7 +19,7 @@ export default function UserProductDetail() {
                 console.log(error);
             }
         };
-        fetchData();
+        fetchUserProductDetail();
     }, []);
     console.log(id);
 
