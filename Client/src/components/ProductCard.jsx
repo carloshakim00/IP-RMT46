@@ -1,6 +1,6 @@
 import Button from "./Button";
 import { useNavigate } from "react-router-dom";
-import showToast from "../utils/toast";
+import { errorAlert} from "../utils/sweetAlert";
 // eslint-disable-next-line react/prop-types, no-unused-vars
 const ProductCard = ({ id, name, price, imageUrl, description, usage, updatedAt, handleOnDetail }) => {
    const navigate = useNavigate();
@@ -10,7 +10,7 @@ const ProductCard = ({ id, name, price, imageUrl, description, usage, updatedAt,
 
   const handleOnCart = () => {
       if(!localStorage.getItem("token")){
-        showToast("Please login first", "error")
+        errorAlert("Please login first", "error")
           navigate("/login")
       }
   }

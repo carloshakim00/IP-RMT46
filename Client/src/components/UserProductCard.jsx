@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import Button from "./Button";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { errorAlert } from "../utils/sweetAlert";
 
 // eslint-disable-next-line react/prop-types
 const UserProductCard = ({ id, name, price, imageUrl, updatedAt, handleOnDetail }) => {
@@ -21,7 +22,7 @@ const UserProductCard = ({ id, name, price, imageUrl, updatedAt, handleOnDetail 
                 });
                 setData(response.data);
             } catch (error) {
-                console.log(error);
+                errorAlert(error.response?.data?.message || error.message);
             }
         };
         fetchUserProductCard();
@@ -51,7 +52,7 @@ const UserProductCard = ({ id, name, price, imageUrl, updatedAt, handleOnDetail 
             console.log(response);
             navigate("/products/myCart");
         } catch (error) {
-            console.log(error);
+            errorAlert(error.response?.data?.message || error.message);
         }
     };
 

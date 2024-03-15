@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import Button from "./Button";
 import { useNavigate } from "react-router-dom";
+import { errorAlert } from "../utils/sweetAlert";
 export default function ProductDetail() {
     const [dataProduct, setDataProduct] = useState([]);
     let {id} = useParams();
@@ -14,7 +15,7 @@ export default function ProductDetail() {
                 console.log(pubData);
                 setDataProduct(pubData.data)
             } catch (error) {
-                console.log(error);
+                errorAlert(error.response?.data?.message || error.message);
             }
         };
         fetchProductDetailData();

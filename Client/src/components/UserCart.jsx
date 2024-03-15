@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { errorAlert } from "../utils/sweetAlert";
 
 export default function UserCart() {
     const [cartItems, setCartItems] = useState([]);
@@ -28,7 +29,7 @@ export default function UserCart() {
                     }, {})
                 );
             } catch (error) {
-                console.log(error);
+                errorAlert(error.response?.data?.message || error.message);
             }
         };
         fetchUserCart();
@@ -47,7 +48,7 @@ export default function UserCart() {
                 setShowDeleteNotification(false);
             }, 2000);
         } catch (error) {
-            console.log(error);
+            errorAlert(error.response?.data?.message || error.message);
         }
     };
 
@@ -75,7 +76,7 @@ export default function UserCart() {
                 setShowUpdateNotification(false);
             }, 2000);
         } catch (error) {
-            console.log(error);
+            errorAlert(error.response?.data?.message || error.message);
         }
     };
 

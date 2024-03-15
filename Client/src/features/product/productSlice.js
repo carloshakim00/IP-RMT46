@@ -14,6 +14,7 @@ export const productSlice = createSlice({
 })
 
 import serverRequest from "../../utils/axios"
+import { errorAlert } from "../../utils/sweetAlert"
 export const {setProducts} = productSlice.actions
 
 export const fetchPubData =  () => {
@@ -25,7 +26,7 @@ export const fetchPubData =  () => {
             })
             dispatch(setProducts(data))
         } catch (error) {
-            console.log(error);
+            errorAlert(error.response?.data?.message || error.message);
         }
     }
 }
@@ -42,7 +43,7 @@ export const fetchUserData =  () => {
             })
             dispatch(setProducts(data))
         } catch (error) {
-            console.log(error);
+            errorAlert(error.response?.data?.message || error.message);
         }
     }
 }
