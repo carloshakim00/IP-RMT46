@@ -14,21 +14,21 @@ cloudinary.config({
 class ProofController {
   static async createProof(req, res, next) {
     try {
-      const file = req.body.image; 
-      const timestamp = new Date().getTime();
-      const publicId = `image_${timestamp}`;
+      if (!req.file) throw { name: "CustomError", status: 400, message: "Image is required" };
+    
+      const mimetype = req.file.mimetype;
+      const data = Buffer.from(req.file.buffer).toString('base64');
+      const dataURI = `data:${mimetype};base64,${data}`;
       
-      const result = await cloudinary.uploader.upload(file, {
-        public_id: publicId,
+      const result = await cloudinary.uploader.upload(dataURI, {
+          public_id: "poke",
       });
 
+      const proof = await Proof.findByPk(req.params.id);
+      if (!proof) throw { name: "NotFound" };
 
-      await Proof.create({
-        imageUrl: result.secure_url,
-        userId: req.body.userId
-      });
-
-      res.status(201).json({ message: "Proof has been created" });
+      await proof.update({ imgUrl: result.secure_url });
+      res.status(200).json({ message: `Image successfully updated` });
     } catch (error) {
       next(error);
     }
