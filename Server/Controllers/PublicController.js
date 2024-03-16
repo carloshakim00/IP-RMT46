@@ -1,4 +1,5 @@
 const {Product} = require("../models")
+const {Op} = require("sequelize")
 class PublicController{
     static async getAllProduct(req, res, next) {
         try {

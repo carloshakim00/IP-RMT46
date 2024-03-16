@@ -2,10 +2,16 @@ import { Link, useNavigate } from "react-router-dom";
 import Button from "./Button";
 import logo from "../assets/logo.jpg";
 import login from "../assets/login.png";
+import { useState } from "react";
 
 
 export default function Navbar() {
     const navigate = useNavigate();
+    const [search, setSearch] = useState("");
+
+    const handleSearch = (e) => {
+        setSearch(e.target.value);
+    }
     return (
         <div className="bg-white text-red-600">
             <div className="container mx-auto flex justify-between items-center py-4">
@@ -39,11 +45,14 @@ export default function Navbar() {
                     </div>
                     <div>
                         <input
+                            onChange={handleSearch}
                             type="text"
                             placeholder="Search..."
                             className="border-2 border-gray-300 bg-white h-10 px-5 pr-16 rounded-lg text-sm focus:outline-none"
                         />
-                        <button className="bg-red-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-4">
+                        <button 
+                        onClick={() => navigate(`/?search=${search}`)}
+                        className="bg-red-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-4">
                             Search
                         </button>
                     </div>
