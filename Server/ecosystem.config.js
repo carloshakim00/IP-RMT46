@@ -1,24 +1,3 @@
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 module.exports = {
 	    apps: [
 		            {
@@ -26,7 +5,7 @@ module.exports = {
 				                script: "./bin/www",
 				                env:{
 							                NODE_ENV: "production",
-							                PORT: 80,
+							                PORT:80,
 							                JWT_SECRET:"rahasia",
 							                cloud_name:"dpmwni4tm",
 							                api_key:134972379139894,
