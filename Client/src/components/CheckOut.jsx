@@ -32,6 +32,7 @@ export default function CheckOut() {
             setFile(event.target.files[0]);
         }
     }
+    
     return (
         <div className="container mx-auto my-10">
             <div className="max-w-lg mx-auto bg-white p-8 rounded shadow-md">
@@ -47,6 +48,7 @@ export default function CheckOut() {
                 <button
                     onClick={handleOnUpload}
                     className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-full"
+                    type="submit"
                 >
                     Upload
                 </button>

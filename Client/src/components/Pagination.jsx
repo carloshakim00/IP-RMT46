@@ -9,17 +9,25 @@ export default function Pagination({ paginationOption }) {
         let numbers = [];
         for (let x = 1; x <= totalPage; x++) {
             numbers.push(
-                <Button key={x} name={x} buttonClass={"tw-join-item tw-btn"} onClick={() => navigate(`?page[size]=10&page[number]=${x}`)} />
+                <li key={x} className={`page-item ${currentPage === x ? 'active' : ''}`}>
+                    <Button name={x} buttonClass={"page-link"} onClick={() => navigate(`?page=${x}`)} />
+                </li>
             );
         }
         return numbers;
     };
 
     return (
-        <div className="tw-join tw-flex tw-justify-center">
-            <Button name={"«"} buttonClass={"tw-join-item tw-btn"} onClick={() => navigate(`?page[size]=10&page[number]=${currentPage > 1 ? currentPage - 1 : 1}`)} />
-            {pageNumbers()}
-            <Button name={"»"} buttonClass={"tw-join-item tw-btn"} onClick={() => navigate(`?page[size]=10&page[number]=${currentPage < totalPage ? currentPage + 1 : totalPage}`)} />
-        </div>
+        <nav aria-label="Page navigation example">
+            <ul className="pagination justify-content-center">
+                <li >
+                    <Button name={"«"} buttonClass={"page-link"} onClick={() => navigate(`?page=${currentPage > 1 ? currentPage - 1 : 1}`)} />
+                </li>
+                {pageNumbers()}
+                <li >
+                    <Button name={"»"} buttonClass={"page-link"} onClick={() => navigate(`?page=${currentPage < totalPage ? currentPage + 1 : totalPage}`)} />
+                </li>
+            </ul>
+        </nav>
     );
 }

@@ -1,11 +1,11 @@
 import { useEffect} from "react"
 import { useNavigate, useSearchParams } from "react-router-dom";
 import ProductCard from "./ProductCard";
-import { useSelector , useDispatch} from "react-redux";
-import { fetchPubData } from "../features/product/productSlice";
+// import { useSelector , useDispatch} from "react-redux";
+// import { fetchPubData } from "../features/product/productSlice";
 import { useState } from "react";
 import { errorAlert } from "../utils/sweetAlert";
-import serverRequest from "../utils/axios"
+// import serverRequest from "../utils/axios"
 import Pagination from "./Pagination";
 import axios from "../utils/axios";
 import Search from "./Search";
@@ -28,8 +28,8 @@ const Main = () => {
 
     useEffect(() => {
     const  fetchProducts =  async (pageNumber = 1) => {
-        let url = `/public/products?page[size]=10&page[number]=${pageNumber}`
-         
+        let url = `/public/products?page=${pageNumber}`
+        
         if(search){
             url += `&search=${search}`
         }
@@ -60,6 +60,8 @@ const Main = () => {
     })
     return (
         <>
+        <div className="container d-grid">
+
         <div className="container">
             <Search search={search} handleSearch={handleSearch} />
         </div>
@@ -72,6 +74,7 @@ const Main = () => {
         </section>
 
         <Pagination paginationOption={paginationOption} />
+        </div>
         </>
     )
 }

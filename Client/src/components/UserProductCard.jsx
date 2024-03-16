@@ -7,11 +7,11 @@ import {toRupiah} from "../helpers/format"
 // eslint-disable-next-line react/prop-types
 const UserProductCard = ({ id, name, price, imageUrl, updatedAt, handleOnDetail }) => {
     const navigate = useNavigate();
+    const [data, setData] = useState([]);
     const handleClick = () => {
         handleOnDetail(id);
     };
     
-    const [data, setData] = useState([]);
     useEffect(() => {
         const fetchUserProductCard = async () => {
             try {
@@ -20,7 +20,6 @@ const UserProductCard = ({ id, name, price, imageUrl, updatedAt, handleOnDetail 
                         Authorization: `Bearer ${localStorage.getItem("token")}`,
                     },
                 });
-                console.log(response.data);
                 setData(response.data);
             } catch (error) {
                 errorAlert(error.response?.data?.message || error.message);
@@ -29,10 +28,11 @@ const UserProductCard = ({ id, name, price, imageUrl, updatedAt, handleOnDetail 
         fetchUserProductCard();
     }, []);
 
+    // const existingItem = data.some(item => item.productId === id);
     
     const handleAddCoin = async (id) => {
         try {
-        
+            
             let response = await axios.post(
                 `https://medshop.carloshakim.online/cart`,
                 { productId: id, userId: localStorage.getItem("userId") },
@@ -48,6 +48,7 @@ const UserProductCard = ({ id, name, price, imageUrl, updatedAt, handleOnDetail 
             errorAlert(error.response?.data?.message || error.message);
         }
     };
+    
 
     return (
         <div className="w-full md:w-1/2 lg:w-1/3 p-2">
