@@ -9,6 +9,7 @@ const UserProductCard = ({ id, name, price, imageUrl, updatedAt, handleOnDetail 
     const navigate = useNavigate();
     const [data, setData] = useState([]);
     const [result, setResult] = useState([]);
+    
     const handleClick = () => {
         handleOnDetail(id);
     };
@@ -97,6 +98,11 @@ const UserProductCard = ({ id, name, price, imageUrl, updatedAt, handleOnDetail 
                     <small className="text-gray-500">Last updated {updatedAt}</small>
                 </div>
             </div>
+            {isAddedToCart && (
+                <div className="bg-red-200 text-green-800 p-4 mb-4 rounded-md">
+                    Product is already added to cart.
+                </div>
+            )}
         </div>
     );
 };
