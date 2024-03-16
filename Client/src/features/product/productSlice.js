@@ -18,6 +18,7 @@ import { errorAlert } from "../../utils/sweetAlert"
 export const {setProducts} = productSlice.actions
 
 export const fetchPubData =  () => {
+    
     return async (dispatch) => {
         try {
             let {data} = await serverRequest({

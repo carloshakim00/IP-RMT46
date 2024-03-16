@@ -1,5 +1,5 @@
 import { useEffect} from "react"
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import ProductCard from "./ProductCard";
 import { useSelector , useDispatch} from "react-redux";
 import { fetchPubData } from "../features/product/productSlice";
@@ -8,18 +8,23 @@ const Main = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const pubData = useSelector((state) => state.products.list)
-    const [searchParams, setSearchParams] = useSearchParams();
-    const [search, setSearch] = useState("");
-
+    const [search, setSearch] = useState("")
     const handleOnDetail = (id) => {
         navigate(`/publicDetail/${id}`)
     }
 
     useEffect(() => {
-        setSearch(searchParams.get("search") || "");
-        dispatch(fetchPubData(searchParams.get("search") || ""));
-    },[searchParams])
+        let url = "/public/products?"
+    
+        if (search) {
+         url += `search=${search}`
+        }
+        dispatch(fetchPubData())
+    },[search])
 
+    const handleSearch = (e) => {
+        setSearch(e.target.value)
+    }
     const products = pubData.map((product,index) => {
         return <ProductCard key={index} name={product.name} price={product.price}
         imageUrl={product.imageUrl} description={product.description} usage={product.usage}
