@@ -3,21 +3,23 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import Button from "./Button";
 import { useNavigate } from "react-router-dom";
+import { errorAlert } from "../utils/sweetAlert";
+import {toRupiah} from "../helpers/format"
 export default function ProductDetail() {
     const [dataProduct, setDataProduct] = useState([]);
     let {id} = useParams();
     const navigate = useNavigate();
     useEffect(() => {
-        const fetchData = async () => {
+        const fetchProductDetailData = async () => {
             try {
                 let pubData = await axios.get(`https://medshop.carloshakim.online/public/products/${id}`)
                 console.log(pubData);
                 setDataProduct(pubData.data)
             } catch (error) {
-                console.log(error);
+                errorAlert(error.response?.data?.message || error.message);
             }
         };
-        fetchData();
+        fetchProductDetailData();
     }, []);
     console.log(id);
 
@@ -37,7 +39,7 @@ export default function ProductDetail() {
                 <img src={dataProduct.imageUrl} className="w-2/3 h-auto" alt="Product" />
                 <div className="p-1">
                     <h1 className="text-lg font-semibold mb-5 text-center">{dataProduct.name}</h1>
-                    <p className="text-gray-900 font-bold mb-4 text-center">Price: {dataProduct.price}</p>
+                    <p className="text-gray-900 font-bold mb-4 text-center">Price: {toRupiah(dataProduct.price)}</p>
                     <p className="text-gray-800 mb-4 text-center">Description: {dataProduct.description}</p>
                     <p className="text-gray-800 mb-2 text-center">Usage: {dataProduct.usage}</p>
                 </div>

@@ -1,11 +1,11 @@
 import { useState } from "react";
 import  serverRequest from "../utils/axios";
-import toast from "../utils/toast"
+
 import { useNavigate } from "react-router-dom";
 import Button from "./Button";
 import { Link } from "react-router-dom";
-import showToast from "../utils/toast";
 import { useEffect } from "react";
+import { errorAlert, successToast } from "../utils/sweetAlert";
 export default function Login() {
   const navigate = useNavigate();
   const [ userData, setUserData ] = useState({
@@ -33,10 +33,10 @@ const handleSubmit = async (event) => {
     });
     localStorage.setItem("token", data.access_token);
     localStorage.setItem("userId", data.userId);
+    successToast("Login success");
     navigate("/products");
    } catch (error) {
-    console.log(error)
-    toast(error.response?.data?.message || error.message, "error")
+    errorAlert(error.response?.data?.message || error.message);
    }
 }
 
@@ -45,7 +45,7 @@ const handleCredentialResponse = async ({ credential }) => {
     googleToken: credential,
   });
   localStorage.setItem("token", data.access_token);
-  showToast(data.message);
+  successToast(data.message);
   navigate("/products/product");
 };
 

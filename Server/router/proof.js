@@ -1,4 +1,6 @@
 const express = require("express");
+const multer = require("multer");
+const upload = multer({ storage: multer.memoryStorage() });
 const router = express.Router();
 
 
@@ -8,6 +10,6 @@ const ProofController = require("../Controllers/ProofController");
 
 router.use(authentication)
 
-router.post("/", ProofController.createProof);
+router.post("/:userId", upload.single("image"), ProofController.createProof);
 
 module.exports = router

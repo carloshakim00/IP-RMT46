@@ -1,9 +1,9 @@
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import serverRequest from "../utils/axios";
-import Toastify from "../utils/toast";
 import Button from "./Button";
 import { Link } from "react-router-dom";
+import { errorAlert, successToast } from "../utils/sweetAlert";
 export default function Register() {
     const navigate = useNavigate();
     const [userData, setUserData] = useState({
@@ -15,7 +15,7 @@ export default function Register() {
     const onHandleRegister = async (e) => {
         e.preventDefault();
         try {
-            let { data } = await serverRequest({
+            await serverRequest({
                 method: "POST",
                 url: "/register",
                 headers: {
@@ -24,12 +24,9 @@ export default function Register() {
                 data: userData,
             });
             navigate("/login");
-            Toastify(`Successfully register ${data.username}`, "success");
+            successToast(`Successfully register ${userData.username}`, "success");
         } catch (error) {
-            Toastify(
-                error.response?.data?.message || error.message,
-                "error"
-            );
+            errorAlert(error.response?.data?.message || error.message);
         }
     };
 

@@ -1,32 +1,24 @@
-import { useEffect, useState } from "react"
-import { useNavigate } from "react-router-dom";
-import serverRequest from "../utils/axios";
+import { useEffect} from "react"
+import { useNavigate, useSearchParams } from "react-router-dom";
 import ProductCard from "./ProductCard";
-
-
-
+import { useSelector , useDispatch} from "react-redux";
+import { fetchPubData } from "../features/product/productSlice";
+import { useState } from "react";
 const Main = () => {
     const navigate = useNavigate();
-    const [pubData, setPubData] = useState([])
-    const fetchPubData = async () => {
-        try {
-            let {data} = await serverRequest({
-                url: `/public/products`,
-                method: "GET"
-            })
-            setPubData(data)
-        } catch (error) {
-            console.log(error);
-        }
-    }
+    const dispatch = useDispatch();
+    const pubData = useSelector((state) => state.products.list)
+    const [searchParams, setSearchParams] = useSearchParams();
+    const [search, setSearch] = useState("");
 
     const handleOnDetail = (id) => {
         navigate(`/publicDetail/${id}`)
     }
 
     useEffect(() => {
-        fetchPubData()
-    },[])
+        setSearch(searchParams.get("search") || "");
+        dispatch(fetchPubData(searchParams.get("search") || ""));
+    },[searchParams])
 
     const products = pubData.map((product,index) => {
         return <ProductCard key={index} name={product.name} price={product.price}

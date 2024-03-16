@@ -1,25 +1,27 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-
+import { errorAlert } from "../utils/sweetAlert";
+import {toRupiah} from "../helpers/format"
 export default function UserCart() {
     const [cartItems, setCartItems] = useState([]);
     const [isDeleted, setIsDeleted] = useState(false);
     const [quantities, setQuantities] = useState({});
     const [showDeleteNotification, setShowDeleteNotification] = useState(false);
     const [showUpdateNotification, setShowUpdateNotification] = useState(false);
-    
     const navigate = useNavigate();
 
     useEffect(() => {
-        const fetchData = async () => {
+        const fetchUserCart = async () => {
             try {
-                let userData = await axios.get(`https://medshop.carloshakim.online/cart`, {
+                let userData = await axios.get(`https://medshop.carloshakim.online/cart?userId=${localStorage.getItem("userId")}`,
+                {
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem("token")}`,
                     },
                 });
-                console.log(userData);
+                console.log(`https://medshop.carloshakim.online/cart?userId=${localStorage.getItem("userId")}`);
+                console.log(userData.data);
                 setCartItems(userData.data);
                 setQuantities(
                     userData.data.reduce((acc, cart) => {
@@ -28,10 +30,10 @@ export default function UserCart() {
                     }, {})
                 );
             } catch (error) {
-                console.log(error);
+                errorAlert(error.response?.data?.message || error.message);
             }
         };
-        fetchData();
+        fetchUserCart();
     }, [isDeleted, showDeleteNotification, showUpdateNotification]);
 
     const handleDelete = async (id) => {
@@ -47,7 +49,7 @@ export default function UserCart() {
                 setShowDeleteNotification(false);
             }, 2000);
         } catch (error) {
-            console.log(error);
+            errorAlert(error.response?.data?.message || error.message);
         }
     };
 
@@ -75,7 +77,7 @@ export default function UserCart() {
                 setShowUpdateNotification(false);
             }, 2000);
         } catch (error) {
-            console.log(error);
+            errorAlert(error.response?.data?.message || error.message);
         }
     };
 
@@ -104,8 +106,8 @@ export default function UserCart() {
                     <div className="bg-white rounded-lg shadow-lg" key={cart.Product.id}>
                         <img src={cart.Product.imageUrl} className="w-full h-48 object-cover rounded-t-lg" alt={cart.Product.name} />
                         <div className="p-4">
-                            <h5 className="text-lg font-semibold mb-3">{cart.Product.name}</h5>
-                            <p className="text-gray-600 mb-3">{cart.Product.price}</p>
+                            <h5 className="text-lg font-semibold mb-3 text-center">{cart.Product.name}</h5>
+                            <p className="text-gray-600 mb-5 text-center">{toRupiah(cart.Product.price)}</p>
                             <div className="flex justify-between items-center">
                                 <input
                                     type="number"

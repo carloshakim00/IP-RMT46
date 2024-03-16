@@ -17,10 +17,6 @@ if(process.env.NODE_ENV !== 'production'){
   //errorHandler
   app.use(errorHandler)
   
-  // app.listen(PORT, () => {
-  //   console.log(`Listening on PORT ${PORT}`);
-  // });
-  
   module.exports = app
   
   

@@ -1,37 +1,23 @@
-import { useEffect, useState } from "react"
+import { useEffect } from "react"
 import { useNavigate } from "react-router-dom";
-import serverRequest from "../utils/axios";
 import UserProductCard from "./UserProductCard";
-
-
-
+import { useDispatch } from "react-redux";
+import { fetchUserData } from "../features/product/productSlice";
+import { useSelector } from "react-redux";
 const UserMain = () => {
     const navigate = useNavigate();
-    const [pubData, setPubData] = useState([])
-    const fetchPubData = async () => {
-        try {
-            let {data} = await serverRequest({
-                url: `/products`,
-                method: "GET",
-                headers: {
-                    Authorization: `Bearer ${localStorage.getItem("token")}`,
-                }
-            })
-            setPubData(data)
-        } catch (error) {
-            console.log(error);
-        }
-    }
+    const userData = useSelector((state) => state.products.list)
+    const dispatch = useDispatch()
 
     const handleOnDetail = (id) => {
         navigate(`/products/productDetail/${id}`)
     }
 
     useEffect(() => {
-        fetchPubData()
+        dispatch(fetchUserData())
     },[])
 
-    const products = pubData.map((product,index) => {
+    const products = userData.map((product,index) => {
         return <UserProductCard key={index} id={product.id} name={product.name} price={product.price}
         imageUrl={product.imageUrl} description={product.description} usage={product.usage}
         updatedAt={product.updatedAt} handleOnDetail={() => handleOnDetail(product.id)}/>

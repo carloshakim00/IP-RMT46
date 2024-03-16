@@ -5,7 +5,7 @@ class CartController{
         try {
           const items = await Cart.findAll({
             where: {
-              userId: req.user.id
+              userId: req.query.userId
             },
             
             include: {

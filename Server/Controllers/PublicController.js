@@ -1,4 +1,5 @@
 const {Product} = require("../models")
+const {Op} = require("sequelize")
 class PublicController{
     static async getAllProduct(req, res, next) {
         try {
@@ -6,7 +7,7 @@ class PublicController{
             let whereCondition = {}
             if (search) {
                 whereCondition.name = {
-                    [Op.like]: `%${search}%`
+                    [Op.iLike]: `%${search}%`
                 }
             }
 
