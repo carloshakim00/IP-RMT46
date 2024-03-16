@@ -7,7 +7,7 @@ class PublicController{
             let whereCondition = {}
             if (search) {
                 whereCondition.name = {
-                    [Op.like]: `%${search}%`
+                    [Op.iLike]: `%${search}%`
                 }
             }
 
