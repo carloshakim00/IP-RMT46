@@ -7,32 +7,51 @@ import {toRupiah} from "../helpers/format"
 // eslint-disable-next-line react/prop-types
 const UserProductCard = ({ id, name, price, imageUrl, updatedAt, handleOnDetail }) => {
     const navigate = useNavigate();
+    const [data, setData] = useState([]);
+    const [result, setResult] = useState([]);
     const handleClick = () => {
         handleOnDetail(id);
     };
     
-    const [data, setData] = useState([]);
     useEffect(() => {
         const fetchUserProductCard = async () => {
             try {
                 let response = await axios.get(`https://medshop.carloshakim.online/products`, {
+                        headers: {
+                            Authorization: `Bearer ${localStorage.getItem("token")}`,
+                        },
+                    });
+                    
+                    setData(response.data);
+                } catch (error) {
+                    errorAlert(error.response?.data?.message || error.message);
+                }
+            };
+    
+            fetchUserProductCard();
+        }, []);
+        
+    const isProductInCart = result.some((product) => product.id === id);
+    const [isAddedToCart, setIsAddedToCart] = useState(false);
+
+    const handleAddCoin = async (id) => {
+        try {
+            let result = await axios.get(`https://medshop.carloshakim.online/cart/cart?userId=${localStorage.getItem("userId")}&productId=${id}`,
+                {
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem("token")}`,
                     },
                 });
-                console.log(response.data);
-                setData(response.data);
-            } catch (error) {
-                errorAlert(error.response?.data?.message || error.message);
+                console.log(result.data);
+                
+            if (result.data) {
+                setIsAddedToCart(true);
+                setTimeout(() => {
+                    setIsAddedToCart(false);
+                }, 2000);
+                return;
             }
-        };
-        fetchUserProductCard();
-    }, []);
 
-    
-    const handleAddCoin = async (id) => {
-        try {
-        
             let response = await axios.post(
                 `https://medshop.carloshakim.online/cart`,
                 { productId: id, userId: localStorage.getItem("userId") },
@@ -48,6 +67,7 @@ const UserProductCard = ({ id, name, price, imageUrl, updatedAt, handleOnDetail 
             errorAlert(error.response?.data?.message || error.message);
         }
     };
+    
 
     return (
         <div className="w-full md:w-1/2 lg:w-1/3 p-2">
@@ -67,7 +87,7 @@ const UserProductCard = ({ id, name, price, imageUrl, updatedAt, handleOnDetail 
                             buttonClass="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded text-sm"
                             buttonType={"submit"}
                             onClick={() => handleAddCoin(id)}
-                    
+                            isDisabled={isAddedToCart}
                         >
                             Add to Cart
                         </Button>

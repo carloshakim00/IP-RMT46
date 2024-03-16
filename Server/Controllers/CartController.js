@@ -28,6 +28,21 @@ class CartController{
         }
       }
 
+      static async getItembyProductIdandUserId(req, res, next) {
+        try {
+          const { productId, userId } = req.query;
+          const items = await Cart.findOne({
+            where: {
+              productId: productId,
+              userId: userId
+            }
+          });
+          res.json(items);
+        } catch (error) {
+          next(error);
+        }
+      }
+      
       static async createItems(req, res, next) {
         try {
 
