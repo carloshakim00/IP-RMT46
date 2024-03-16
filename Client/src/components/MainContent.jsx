@@ -46,8 +46,8 @@ const Main = () => {
                     errorAlert(error.response?.data?.message || error.message);
                 }
         }
-        fetchProducts(searchParams.get("page[number]") || 1)
-    },[searchParams.get("page[number]"),search])
+        fetchProducts(searchParams.get("page") || 1)
+    },[searchParams.get("page"),search])
 
     const handleSearch = (e) => {
         setSearch(e.target.value)

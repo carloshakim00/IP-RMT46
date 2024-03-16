@@ -20,11 +20,11 @@ export default function Pagination({ paginationOption }) {
     return (
         <nav aria-label="Page navigation example">
             <ul className="pagination justify-content-center">
-                <li >
+                <li className="page-item">
                     <Button name={"«"} buttonClass={"page-link"} onClick={() => navigate(`?page=${currentPage > 1 ? currentPage - 1 : 1}`)} />
                 </li>
                 {pageNumbers()}
-                <li >
+                <li className="page-item">
                     <Button name={"»"} buttonClass={"page-link"} onClick={() => navigate(`?page=${currentPage < totalPage ? currentPage + 1 : totalPage}`)} />
                 </li>
             </ul>
