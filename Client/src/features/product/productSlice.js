@@ -25,7 +25,7 @@ export const fetchPubData =  () => {
                 url: `/public/products`,
                 method: "GET",
             })
-            dispatch(setProducts(data))
+            dispatch(setProducts(data.data))
         } catch (error) {
             errorAlert(error.response?.data?.message || error.message);
         }
