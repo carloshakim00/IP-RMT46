@@ -36,15 +36,15 @@ const UserProductCard = ({ id, name, price, imageUrl, updatedAt, handleOnDetail 
 
     const handleAddCoin = async (id) => {
         try {
-            let result = await axios.get(`https://medshop.carloshakim.online/cart?userId=${localStorage.getItem("userId")}&productId=${id}`,
+            let result = await axios.get(`https://medshop.carloshakim.online/cart/cart?userId=${localStorage.getItem("userId")}&productId=${id}`,
                 {
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem("token")}`,
                     },
                 });
-
+                console.log(result.data);
                 
-            if (result.data.length > 0) {
+            if (result.data) {
                 setIsAddedToCart(true);
                 setTimeout(() => {
                     setIsAddedToCart(false);
